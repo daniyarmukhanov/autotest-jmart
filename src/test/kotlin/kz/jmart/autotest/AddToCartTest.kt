@@ -7,7 +7,7 @@ import org.testng.annotations.AfterClass
 import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
 
-class AuthTest {
+class AddToCartTest {
 
     companion object {
         private lateinit var generalPage: GeneralPage
@@ -22,13 +22,15 @@ class AuthTest {
     @Test
     fun test() {
         generalPage.pressRu()
-        generalPage.pressProfile()
-        generalPage.pressLoginOrSignUp()
-        generalPage.pressLogin()
-        generalPage.enterPhoneNumber("+77029016994")
-        generalPage.pressNextAfterPhone()
-        generalPage.enterPassword("qwerty123")
-        generalPage.pressNextAfterPassword()
+        generalPage.pressJmart()
+        generalPage.chooseCity()
+        generalPage.selectCategory("Акции месяца")
+        generalPage.selectSubCategory("Все")
+        generalPage.selectFirstProduct()
+        generalPage.chooseByCard()
+        generalPage.pressChooseFirstMarket()
+        generalPage.pressNextToDeliver()
+        generalPage.pressNextToPay()
         println("The Test was successful")
     }
 
