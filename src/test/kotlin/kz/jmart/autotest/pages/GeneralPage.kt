@@ -1,11 +1,16 @@
 package kz.jmart.autotest.pages
 
+import io.appium.java_client.TouchAction
 import kz.jmart.autotest.core.SeleniumAndroidDriver
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
+import org.openqa.selenium.interactions.touch.TouchActions
 import org.openqa.selenium.support.FindBy
 import org.openqa.selenium.support.PageFactory
+import org.openqa.selenium.support.ui.ExpectedConditions
+import org.openqa.selenium.support.ui.WebDriverWait
 import java.util.concurrent.TimeUnit
+
 
 class GeneralPage() {
     init {
@@ -24,8 +29,8 @@ class GeneralPage() {
     @FindBy(id = "kz.tsb.app24.debug:id/loginButton")
     private val loginOrSignUp: WebElement? = null
 
-    @FindBy(xpath = "//android.widget.TextView[@text='Войти']")
-    private val loginButton: WebElement? = null
+    @FindBy(id = "kz.tsb.app24.debug:id/registerButton")
+    private val registerButton: WebElement? = null
 
     @FindBy(id = "kz.tsb.app24.debug:id/phoneNumberEditText")
     private val phoneNumberEditText: WebElement? = null
@@ -42,6 +47,24 @@ class GeneralPage() {
     @FindBy(xpath = "//android.widget.TextView[@text='Алматы']")
     private val almatyCity: WebElement? = null
 
+    @FindBy(xpath = "//android.widget.TextView[@text='Акции месяца']")
+    private val monthDiscounts: WebElement? = null
+
+    @FindBy(xpath = "//android.widget.TextView[@text='Все']")
+    private val all: WebElement? = null
+
+    @FindBy(id = "kz.tsb.app24.debug:id/nameTextView")
+    private val firstProduct: WebElement? = null
+
+    @FindBy(id = "kz.tsb.app24.debug:id/isPaymentTextView")
+    private val card: WebElement? = null
+
+    @FindBy(id = "kz.tsb.app24.debug:id/addTextView")
+    private val chooseBtn: WebElement? = null
+
+    @FindBy(id = "kz.tsb.app24.debug:id/scrollView")
+    private val scrollView: WebElement? = null
+
     /**
      * ---------------------------------------------------------------------------------------
      */
@@ -55,16 +78,20 @@ class GeneralPage() {
 
     fun pressLoginOrSignUp() {
         loginOrSignUp?.click()
-        SeleniumAndroidDriver.getDriver().manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
     }
 
     fun pressLogin() {
-        val all =  SeleniumAndroidDriver.getDriver().findElements(By.id("loginButton"))
-        var last: WebElement? = null
-        for (view in all) {
-            last = view
+
+        registerButton?.let {
+            wait(it)
+            val all =  SeleniumAndroidDriver.getDriver().findElements(By.id("loginButton"))
+            println(all.toString())
+            var last: WebElement? = null
+            for (view in all) {
+                last = view
+            }
+            last?.click()
         }
-        last?.click()
     }
 
     fun enterPhoneNumber(phone: String) {
@@ -99,35 +126,47 @@ class GeneralPage() {
         almatyCity?.click()
     }
 
-    fun selectCategory(category: String) {
-
+    fun selectMonthDiscounts() {
+        monthDiscounts?.click()
     }
 
-    fun selectSubCategory(subCategory: String) {
-
+    fun selectAll() {
+        all?.click()
+        SeleniumAndroidDriver.getDriver().manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS)
     }
 
     fun selectFirstProduct() {
-
+        firstProduct?.let {
+            wait(it)
+            it.click()
+        }
     }
 
     fun chooseByCard() {
-
+        card?.let {
+            wait(it)
+            it.click()
+        }
     }
 
     fun pressChooseFirstMarket() {
+//        val action = TouchAction(SeleniumAndroidDriver.getDriver())
+//        action.scroll(scrollView, 10, 100)
+//        action.perform()
 
+
+        chooseBtn?.let {
+            wait(it)
+            it.click()
+        }
     }
 
-    fun pressNextToDeliver() {
-
-    }
-
-    fun pressNextToPay() {
-
-    }
     /**
      * ---------------------------------------------------------------------------------------
      */
 
+    private fun wait(webElement: WebElement) {
+        val wait = WebDriverWait(  SeleniumAndroidDriver.getDriver(), 15)
+        wait.until(ExpectedConditions.visibilityOf(webElement))
+    }
 }

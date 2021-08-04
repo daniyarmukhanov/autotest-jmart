@@ -24,19 +24,17 @@ class AddToCartTest {
         generalPage.pressRu()
         generalPage.pressJmart()
         generalPage.chooseCity()
-        generalPage.selectCategory("Акции месяца")
-        generalPage.selectSubCategory("Все")
+        generalPage.selectMonthDiscounts()
+        generalPage.selectAll()
         generalPage.selectFirstProduct()
         generalPage.chooseByCard()
         generalPage.pressChooseFirstMarket()
-        generalPage.pressNextToDeliver()
-        generalPage.pressNextToPay()
         println("The Test was successful")
     }
 
     @AfterClass
     fun clear() {
-        closeDriver()
+        //closeDriver()
         println("The close_up process is completed")
     }
 }
