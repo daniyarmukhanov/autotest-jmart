@@ -34,7 +34,8 @@ class AuthTest {
 
     @AfterClass
     fun clear() {
-        //closeDriver()
+        closeDriver()
+        println("TEST PR")
         println("The close_up process is completed")
     }
 }
